@@ -3,50 +3,62 @@ import React from 'react';
 import { SignupForm } from '../../components/forms/SignupForm';
 import { FinancialInfoForm } from '../../components/forms/FinancialInfoForm';
 import { PersonalInfoForm } from '../../components/forms/PersonalInfoForm';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { SetCurrentStep, SetSubmitting, UpdateFormData } from '../../redux/features/auth/authSlice';
+import { RootState } from '../../redux/store';
 export const AuthPage = () => {
+  const dispatch = useDispatch();
+  const { currentStep, formData, isSubmitting} = useSelector((state:RootState)=>state.Auth)
   const [step, setStep] = React.useState(1);
-  const [formData, setFormData] = React.useState({
-    signup: {},
-    personal: {},
-    financial: {},
-  });
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    
-    setFormData(prev => ({
-      ...prev,
-      [getFormKey()]: values,
-    }));
-    
-    setSubmitting(false);
-    if (step < 3) {
-      setStep(step + 1);
-    } else {
-      // Handle final submission
-      console.log('Final form data:', formData);
+  const handleSubmit = async (values, formType) => {
+    try {
+      dispatch(SetSubmitting(true));
+      dispatch(UpdateFormData({ formType, data: values }));
+
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      if (currentStep < 3) {
+        dispatch(SetCurrentStep(currentStep + 1));
+      } else {
+        // Handle final submission
+        console.log('Final submission:', formData);
+        // You can make API call here
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+    } finally {
+      // dispatch(SetSubmitting(false));
     }
   };
 
-  const getFormKey = () => {
-    switch (step) {
-      case 1: return 'signup';
-      case 2: return 'personal';
-      case 3: return 'financial';
-      default: return 'signup';
-    }
-  };
 
-  const renderForm = () => {
-    switch (step) {
+    const renderForm = () => {
+    switch (currentStep) {
       case 1:
-        return <SignupForm onSubmit={handleSubmit} />;
+        return (
+          <SignupForm
+            onSubmit={(values) => handleSubmit(values, 'signup')}
+          />
+        );
       case 2:
-        return <PersonalInfoForm onSubmit={handleSubmit} />;
+        return (
+          <PersonalInfoForm
+            onSubmit={(values) => handleSubmit(values, 'personal')}
+
+          />
+        );
       case 3:
-        return <FinancialInfoForm onSubmit={handleSubmit} />;
+        return (
+          <FinancialInfoForm
+      
+            onSubmit={(values) => handleSubmit(values, 'financial')}
+           
+          />
+        );
       default:
-        return <SignupForm onSubmit={handleSubmit} />;
+        return null;
     }
   };
 
