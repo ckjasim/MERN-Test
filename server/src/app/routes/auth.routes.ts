@@ -1,5 +1,5 @@
 import express from "express";
-import { createUser, verifyExistingUser} from "../controllers/users.controller";
+import { createUser, getUserData, verifyExistingUser} from "../controllers/users.controller";
 import { signupValidator, userValidator } from "../utils/validators";
 import { validateRequest } from "../middlewares/validate-request";
 
@@ -34,8 +34,8 @@ router.post("/",
     createUser
 );
 
-// router.get("/",
-//     getBooks
-// );
+router.post("/getUserData",
+    getUserData
+);
 
 export {router as authRouter};

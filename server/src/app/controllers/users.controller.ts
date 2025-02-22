@@ -25,17 +25,6 @@ export const verifyExistingUser = async (
     }else{
        sendResponse(res, HttpStatusCode.CREATED, CommonMessages.VERIFIED)
     }
-
-    // const { password } = req.body;
-    // const hashedPassword = await Password.toHash(password);
-    // const newUser = await userService.createUser({
-    //   email,
-    //   password: hashedPassword,
-    // });
-    // sendResponse(res, HttpStatusCode.CREATED, "Created user successfully", {
-    //   id: newUser.id,
-    //   email: newUser.email,
-    // });
   } catch (error) {
     next(error);
   }
@@ -49,6 +38,11 @@ export const createUser = async (
     const { email,mobile,password } = req.body.signup;
     const { title,fullName,dateOfBirth,currentAddress,addressDuration,aboutYourself } = req.body.personal;
     const { employmentStatus,additionalInvestments } = req.body.financial;
+
+    const existingUser = await userService.findUserByEmailOrMobile(email,mobile);
+    if (existingUser) {
+      throw new CustomError("User already exists in this email or mobile number !", 400);
+    }
 
     const hashedPassword = await Password.toHash(password);
     const newUser = await userService.createUser({
@@ -68,6 +62,25 @@ export const createUser = async (
       id: newUser.id,
       email: newUser.email,
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getUserData = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { id } = req.body;
+  
+    const userData = await userService.findUserById(id);
+    if (userData) {
+      sendResponse(res, HttpStatusCode.OK, CommonMessages.SUCCESS, userData);
+    }else{
+      throw new CustomError("Invalid Link", 400);
+    }
   } catch (error) {
     next(error);
   }

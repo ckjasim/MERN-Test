@@ -6,8 +6,10 @@ import { SetCurrentStep, SetSubmitting, UpdateFormData } from '../../redux/featu
 import { RootState } from '../../redux/store';
 import { createUserApi, userSignupApi } from '../../services/api/authApi';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 export const SignupPage = () => {
+  const navigate= useNavigate();
   const dispatch = useDispatch();
   const { currentStep, formData, isSubmitting } = useSelector((state: RootState) => state.Auth);
 
@@ -34,9 +36,16 @@ export const SignupPage = () => {
         const res =  await createUserApi(updatedFormData);
         console.log('User created:', res);  
         toast.success('signup done successfully');
+        if (res?.data?.id) {
+          navigate(`/saved-form/${res?.data?.id}`);
+          console.log('jjjssssssssssssssssssss')
+        }
+        console.log('jjjjjjjjjjjjj')
       }
-    } catch (error) {
+    } catch (error:any) {
       console.error('Form submission error:', error);
+      toast.error(error.response.data.errors[0]);
+
     } finally {
       dispatch(SetSubmitting(false));
     }

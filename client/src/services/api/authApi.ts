@@ -20,3 +20,14 @@ export const createUserApi = async (data:any) => {
     throw error;
   }
 };
+
+export const getUserDataApi = async (data:any) => {
+  try {
+    const response = await baseURL.post('/auth/getUserData',data);
+    return response.data;
+
+  } catch (error) {
+    console.error("Error logging out:", error);
+    throw error;
+  }
+};
