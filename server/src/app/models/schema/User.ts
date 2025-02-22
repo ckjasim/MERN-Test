@@ -1,36 +1,55 @@
-import mongoose from "mongoose";
-import { BookAttrs, BookDoc, BookModel } from "../inventory.model";
+ import mongoose from "mongoose";
+import { UserAttrs, UserDoc, UserModel } from "../user.model";
 
-const bookSchema = new mongoose.Schema(
+const userSchema = new mongoose.Schema(
   {
-    title: {
+    email: {
       type: String,
       required: true,
       trim: true,
-    },
-    author: {
-      type: String,
-      required: true,
-      trim: true,
-    },
-    publicationYear: {
-      type: String,
-      required: true,
-    },
-    isbn: {
-      type: String,
       unique: true,
+    },
+    mobile: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+    },
+    password: {
+      type: String,
       required: true,
     },
-    description: {
+    fullName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    dateOfBirth: {
+      type: String,
+      required: true,
+    },
+    currentAddress: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    addressDuration: {
+      type: String,
+      required: true,
+    },
+    aboutYourself: {
       type: String,
       trim: true,
       maxlength: 2000,
     },
-    imageURL: {
+    employmentStatus: {
       type: String,
       required: true,
-    }
+    },
+    additionalInvestments: {
+      type: String,
+      trim: true,
+    },
   },
   {
     toJSON: {
@@ -44,10 +63,10 @@ const bookSchema = new mongoose.Schema(
   }
 );
 
-bookSchema.statics.build = (attrs: BookAttrs) => {
-  return new Book(attrs);
+userSchema.statics.build = (attrs: UserAttrs) => {
+  return new User(attrs);
 };
 
-const Book = mongoose.model<BookDoc, BookModel>("Book", bookSchema);
+const User = mongoose.model<UserDoc , UserModel>("User", userSchema);
 
-export { Book };
+export { User };

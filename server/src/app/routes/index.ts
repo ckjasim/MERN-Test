@@ -1,8 +1,8 @@
 import express from "express";
-import { inventoryRouter } from "./inventory.routes";
+import { authRouter } from "./auth.routes";
 
 const router = express.Router();
 
-router.use("/inventory",inventoryRouter);
+router.use("/auth",authRouter);
 
-export {router as appRouter};
+export {router as appRouter}; 

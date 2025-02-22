@@ -1,7 +1,7 @@
 import { Formik, Form, Field } from 'formik';
 import { FormLayout } from './components/FormLayout';
 import { StepIndicator } from './components/StepIndicator';
-import { financialInfoSchema } from './schemas/validationSchema';
+import { financialInfoSchema } from '../../util/validators';
 
 export const FinancialInfoForm = ({ onSubmit }) => {
   return (

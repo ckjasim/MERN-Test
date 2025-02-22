@@ -6,13 +6,19 @@ import { PersonalInfoForm } from '../../components/forms/PersonalInfoForm';
 import { useDispatch, useSelector } from 'react-redux';
 import { SetCurrentStep, SetSubmitting, UpdateFormData } from '../../redux/features/auth/authSlice';
 import { RootState } from '../../redux/store';
-export const AuthPage = () => {
+import { userSignupApi } from '../../services/api/authApi';
+export const SignupPage = () => {
   const dispatch = useDispatch();
   const { currentStep, formData, isSubmitting} = useSelector((state:RootState)=>state.Auth)
   const [step, setStep] = React.useState(1);
 
   const handleSubmit = async (values, formType) => {
     try {
+
+      if(formType === 'signup'){  
+        const res = await userSignupApi(values)
+        console.log(res)  
+      }
       dispatch(SetSubmitting(true));
       dispatch(UpdateFormData({ formType, data: values }));
 

@@ -3,7 +3,7 @@ import { Formik, Form, Field } from 'formik';
 import { FormLayout } from './components/FormLayout';
 import { StepIndicator } from './components/StepIndicator';
 import { HelpCircle } from 'lucide-react';
-import { personalInfoSchema } from './schemas/validationSchema';
+import { personalInfoSchema } from '../../util/validators';
 
 export const PersonalInfoForm = ({ onSubmit }) => {
   return (

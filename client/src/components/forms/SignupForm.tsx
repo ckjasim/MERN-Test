@@ -3,7 +3,7 @@ import { Eye, EyeOff, HelpCircle } from 'lucide-react';
 
 import { FormLayout } from './components/FormLayout';
 import React, { useState } from 'react';
-import { signupSchema } from './schemas/validationSchema';
+import { signupSchema } from '../../util/validators';
 
 export const SignupForm = ({ onSubmit }) => {
   const [showPassword, setShowPassword] = useState(false);

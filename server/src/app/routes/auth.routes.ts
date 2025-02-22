@@ -1,7 +1,7 @@
 import express from "express";
 import { createUser} from "../controllers/users.controller";
-// import { createBookValidator, updateBookValidator } from "../utils/validators";
-// import validateRequest from "../middlewares/validate-request";
+import { signupValidator } from "../utils/validators";
+import { validateRequest } from "../middlewares/validate-request";
 
 const router = express.Router();
 
@@ -24,8 +24,8 @@ const router = express.Router();
 // )
 
 router.post("/",
-    // createBookValidator,
-    // validateRequest,
+    signupValidator,
+    validateRequest,
     createUser
 );
 
@@ -33,4 +33,4 @@ router.post("/",
 //     getBooks
 // );
 
-export {router as inventoryRouter};
+export {router as authRouter};

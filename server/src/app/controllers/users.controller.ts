@@ -17,14 +17,15 @@ export const createUser = async (
   next: NextFunction
 ) => {
   try {
-    const { email } = req.body;
-    console.log(req.body)
-    // const existingUser = await userService.findUserByEmail(email);
+    const { email,mobile,password } = req.body;
+  
+    const existingUser = await userService.findUserByEmailOrMobile(email,mobile);
+    if (existingUser) {
+      throw new CustomError("User already exists in this email or mobile number !", 400);
+    }else{
+       sendResponse(res, HttpStatusCode.CREATED, CommonMessages.VERIFIED)
+    }
 
-    // console.log(existingUser);
-    // if (existingUser) {
-    //   throw new CustomError("User already exists in this email!", 400);
-    // }
     // const { password } = req.body;
     // const hashedPassword = await Password.toHash(password);
     // const newUser = await userService.createUser({
@@ -40,113 +41,113 @@ export const createUser = async (
   }
 };
 
-export const loginUser = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const { email } = req.body;
-    const user = await userService.findUserByEmail(email);
-    if (!user) {
-      throw new CustomError("Invalid email or password!",404);
-    }
-    const { password } = req.body;
-    console.log(password, user.password)
-    const matchPassword = await Password.compare(user.password, password);
-    if (!matchPassword) {
-      throw new CustomError("Invalid email or password!",404);
-    }
+// export const loginUser = async (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   try {
+//     const { email } = req.body;
+//     const user = await userService.findUserByEmail(email);
+//     if (!user) {
+//       throw new CustomError("Invalid email or password!",404);
+//     }
+//     const { password } = req.body;
+//     console.log(password, user.password)
+//     const matchPassword = await Password.compare(user.password, password);
+//     if (!matchPassword) {
+//       throw new CustomError("Invalid email or password!",404);
+//     }
 
-    const payload: JWTUserPayload = {
-      id: user.id,
-      email: user.email,
-    };
+//     const payload: JWTUserPayload = {
+//       id: user.id,
+//       email: user.email,
+//     };
 
-    const accessToken = generateJwtAccessToken(
-      payload,
-      process.env.JWT_ACCESS_SECRET!
-    );
-    const refreshToken = generateJwtRefreshToken(
-      payload,
-      process.env.JWT_REFRESH_SECRET!
-    );
+//     const accessToken = generateJwtAccessToken(
+//       payload,
+//       process.env.JWT_ACCESS_SECRET!
+//     );
+//     const refreshToken = generateJwtRefreshToken(
+//       payload,
+//       process.env.JWT_REFRESH_SECRET!
+//     );
 
-    setCookie(res, "accessToken", accessToken, { maxAge: 30 * 60 * 1000 });
-    setCookie(res, "refreshToken", refreshToken, {
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-    });
+//     setCookie(res, "accessToken", accessToken, { maxAge: 30 * 60 * 1000 });
+//     setCookie(res, "refreshToken", refreshToken, {
+//       maxAge: 7 * 24 * 60 * 60 * 1000,
+//     });
 
-    sendResponse(res, HttpStatusCode.OK, "Login successfull", payload);
-  } catch (error) {
-    console.log(error)
-    next(error);
-  }
-};
+//     sendResponse(res, HttpStatusCode.OK, "Login successfull", payload);
+//   } catch (error) {
+//     console.log(error)
+//     next(error);
+//   }
+// };
 
-export const editUser =  async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const {userId} = req.params
-    const id = Number(userId);
-    if (!id || !Number.isInteger(id)) {
-      throw new CustomError("Invalid or missing User ID",400);
-    }
+// export const editUser =  async (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   try {
+//     const {userId} = req.params
+//     const id = Number(userId);
+//     if (!id || !Number.isInteger(id)) {
+//       throw new CustomError("Invalid or missing User ID",400);
+//     }
     
-    const user = await userService.findUserById(id);
-    if (!user) {
-      throw new CustomError("User not found",404);
-    }
+//     const user = await userService.findUserById(id);
+//     if (!user) {
+//       throw new CustomError("User not found",404);
+//     }
     
-    const {email} = req.body;
+//     const {email} = req.body;
 
-    const existingUser = await userService.findUserByEmail(email);
-    if(existingUser && user.email !== existingUser?.email){
-      throw new CustomError("Email already exists",400)
-    }
+//     const existingUser = await userService.findUserByEmail(email);
+//     if(existingUser && user.email !== existingUser?.email){
+//       throw new CustomError("Email already exists",400)
+//     }
 
-    const updateData: Partial<{ email: string;}> = {};
-    if (email) updateData.email = email;
+//     const updateData: Partial<{ email: string;}> = {};
+//     if (email) updateData.email = email;
 
-    const updatedUser = await userService.updateUserById(id, updateData);
-    sendResponse(res, HttpStatusCode.OK, "Updated user successfully", {id:updatedUser?.id, email: updatedUser?.email})
+//     const updatedUser = await userService.updateUserById(id, updateData);
+//     sendResponse(res, HttpStatusCode.OK, "Updated user successfully", {id:updatedUser?.id, email: updatedUser?.email})
 
-  } catch (error) {
-    next(error);
-  }
-}
+//   } catch (error) {
+//     next(error);
+//   }
+// }
 
-export const newToken = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    const refreshToken = req.cookies.refreshToken;
-    if (!refreshToken) {
-      throw new CustomError("not authorized",401);
-    }
+// export const newToken = async (
+//   req: Request,
+//   res: Response,
+//   next: NextFunction
+// ) => {
+//   try {
+//     const refreshToken = req.cookies.refreshToken;
+//     if (!refreshToken) {
+//       throw new CustomError("not authorized",401);
+//     }
 
-    const refreshSecret = process.env.JWT_REFRESH_SECRET;
-    const user = verifyJwt(refreshToken, refreshSecret!) as JWTUserPayload;
-    if (!user) {
-      throw new CustomError("forbidden",403);
-    }
-    const payload: JWTUserPayload = {
-      id: user.id,
-      email: user.email,
-    };
-    const accessSecret = process.env.JWT_ACCESS_SECRET;
-    const newAccessToken = generateJwtAccessToken(payload, accessSecret!);
+//     const refreshSecret = process.env.JWT_REFRESH_SECRET;
+//     const user = verifyJwt(refreshToken, refreshSecret!) as JWTUserPayload;
+//     if (!user) {
+//       throw new CustomError("forbidden",403);
+//     }
+//     const payload: JWTUserPayload = {
+//       id: user.id,
+//       email: user.email,
+//     };
+//     const accessSecret = process.env.JWT_ACCESS_SECRET;
+//     const newAccessToken = generateJwtAccessToken(payload, accessSecret!);
 
-    setCookie(res, "accessToken", newAccessToken, { maxAge: 30 * 60 * 1000 });
+//     setCookie(res, "accessToken", newAccessToken, { maxAge: 30 * 60 * 1000 });
 
-    sendResponse(res, HttpStatusCode.OK, CommonMessages.SUCCESS, { accessToken: newAccessToken });
-  } catch (error) {
-    console.log("Error in new token", error);
-    next(error);
-  }
-};
+//     sendResponse(res, HttpStatusCode.OK, CommonMessages.SUCCESS, { accessToken: newAccessToken });
+//   } catch (error) {
+//     console.log("Error in new token", error);
+//     next(error);
+//   }
+// };
