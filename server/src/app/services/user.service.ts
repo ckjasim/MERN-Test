@@ -19,7 +19,7 @@ export class UserService implements IUserService {
     return await User.build(attrs).save();
   }
   async findUserById(id: string): Promise<UserDoc | null> {
-    const user = await User.findOne({id});
+    const user = await User.findOne({_id:id});
     return user;
   }
 

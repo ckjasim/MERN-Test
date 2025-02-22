@@ -23,7 +23,8 @@ export const createUserApi = async (data:any) => {
 
 export const getUserDataApi = async (data:any) => {
   try {
-    const response = await baseURL.post('/auth/getUserData',data);
+    console.log(data,'dddddddddddddddddd')
+    const response = await baseURL.post('/auth/getUserData',{id:data});
     return response.data;
 
   } catch (error) {

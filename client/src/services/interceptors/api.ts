@@ -6,6 +6,7 @@ const baseURL = axios.create({
   withCredentials: true,
 });
 
+
 // const addAuthToken = (config: any) => {
 //   const userString = window.localStorage.getItem('user');
 //   const user = userString ? JSON.parse(userString) : null;

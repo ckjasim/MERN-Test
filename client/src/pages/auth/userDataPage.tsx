@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Card, CardHeader, CardContent } from '@/components/ui/card';
-import { CalendarIcon, BriefcaseIcon, HomeIcon, MailIcon, PhoneIcon, UserIcon } from 'lucide-react';
+import { CalendarIcon, BriefcaseIcon, HomeIcon, MailIcon, PhoneIcon, UserIcon, LoaderCircle } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 import { getUserDataApi } from '@/services/api/authApi';
+import toast from 'react-hot-toast';
 
 const UserDataPage = () => {
   const { id } = useParams();
   const [userData, setUserData] = useState(null);
-
+const [loading,setLoading] = useState(true);
   useEffect(() => {
     const fetchData = async () => {
       try {
+       
+        console.log(id,'iddddddddddddd')
         const {data} = await getUserDataApi(id);
         console.log('User data:', data);  
         setUserData(data);
       } catch (error) {
         console.error('Error fetching saved form:', error);
+      }finally{
+setLoading(false);  
       }
     };
 
@@ -35,8 +40,11 @@ const UserDataPage = () => {
   };
 
   return (
+    
     <div className="max-w-4xl mx-auto p-4 space-y-6">
-      <Card>
+      {loading ? <div className="flex justify-center items-center h-32">
+                      <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
+                    </div>:<Card>
         <CardHeader>
           <div className="flex items-center justify-between">
             <h1 className="text-2xl font-bold">{userData?.title} {userData?.fullName}</h1>
@@ -132,7 +140,8 @@ const UserDataPage = () => {
             </div>
           )}
         </CardContent>
-      </Card>
+      </Card>}
+      
     </div>
   );
 };

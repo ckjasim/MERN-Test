@@ -36,6 +36,7 @@ export const SignupPage = () => {
         const res =  await createUserApi(updatedFormData);
         console.log('User created:', res);  
         toast.success('signup done successfully');
+        
         if (res?.data?.id) {
           navigate(`/saved-form/${res?.data?.id}`);
         }
