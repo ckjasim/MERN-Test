@@ -1,12 +1,17 @@
-import React from 'react';
+import { RootState } from "@/redux/store";
+import { StepIndicator } from "./StepIndicator";
+import { useSelector } from "react-redux";
 
 export const FormLayout = ({ title, subtitle, children }) => {
+  const { currentStep } = useSelector((state: RootState) => state.Auth);
   return (
-    <div className="max-w-2xl mx-auto p-6">
-      <img src="/logo.png" alt="Craxinno Technologies" className="h-8 mb-8" />
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold mb-2">{title}</h1>
-        <p className="text-gray-600">{subtitle}</p>
+    <div className="max-w-lg mx-auto p-6 px-12">
+      <div className="mb-8 flex flex-col items-center">
+        {currentStep && currentStep > 1 && <StepIndicator  />}
+             
+        
+        <h1 className="text-2xl font-bold mb-1">{title}</h1>
+        <p className="text-gray-600 text-sm">{subtitle}</p>
       </div>
       {children}
     </div>

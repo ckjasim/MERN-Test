@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 export const SignupPage = () => {
   const navigate= useNavigate();
   const dispatch = useDispatch();
-  const { currentStep, formData, isSubmitting } = useSelector((state: RootState) => state.Auth);
+  const { currentStep, formData } = useSelector((state: RootState) => state.Auth);
 
   const handleSubmit = async (values, formType) => {
     try {
@@ -38,9 +38,7 @@ export const SignupPage = () => {
         toast.success('signup done successfully');
         if (res?.data?.id) {
           navigate(`/saved-form/${res?.data?.id}`);
-          console.log('jjjssssssssssssssssssss')
         }
-        console.log('jjjjjjjjjjjjj')
       }
     } catch (error:any) {
       console.error('Form submission error:', error);
