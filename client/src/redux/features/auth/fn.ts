@@ -7,7 +7,6 @@ export const updateFormData = (
 ) => {
   const { formType, data } = action.payload;
   
-  // Ensure TypeScript understands formType is a key of formData
   state.formData = {
     ...state.formData,
     [formType]: { ...state.formData[formType], ...data }

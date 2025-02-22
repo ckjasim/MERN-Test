@@ -1,6 +1,6 @@
 import express from "express";
-import { createUser} from "../controllers/users.controller";
-import { signupValidator } from "../utils/validators";
+import { createUser, verifyExistingUser} from "../controllers/users.controller";
+import { signupValidator, userValidator } from "../utils/validators";
 import { validateRequest } from "../middlewares/validate-request";
 
 const router = express.Router();
@@ -23,8 +23,13 @@ const router = express.Router();
 //     deleteBook
 // )
 
-router.post("/",
+router.post("/verifyExistingUser",
     signupValidator,
+    validateRequest,
+    verifyExistingUser
+);
+router.post("/",
+    userValidator,
     validateRequest,
     createUser
 );

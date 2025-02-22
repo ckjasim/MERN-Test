@@ -11,13 +11,13 @@ import { setCookie } from "../utils/cookie-utils";
 import { CommonMessages, HttpStatusCode, sendResponse } from "../utils/send-response";
 import { CustomError } from "../utils/custom-error";
 
-export const createUser = async (
+export const verifyExistingUser = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const { email,mobile,password } = req.body;
+    const { email,mobile } = req.body;
   
     const existingUser = await userService.findUserByEmailOrMobile(email,mobile);
     if (existingUser) {
@@ -36,6 +36,38 @@ export const createUser = async (
     //   id: newUser.id,
     //   email: newUser.email,
     // });
+  } catch (error) {
+    next(error);
+  }
+};
+export const createUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { email,mobile,password } = req.body.signup;
+    const { title,fullName,dateOfBirth,currentAddress,addressDuration,aboutYourself } = req.body.personal;
+    const { employmentStatus,additionalInvestments } = req.body.financial;
+
+    const hashedPassword = await Password.toHash(password);
+    const newUser = await userService.createUser({
+      email,
+      password: hashedPassword,
+      mobile,
+      title,
+      fullName,
+      dateOfBirth,
+      currentAddress,
+      addressDuration,
+      aboutYourself,
+      employmentStatus,
+      additionalInvestments
+    });
+    sendResponse(res, HttpStatusCode.CREATED, CommonMessages.CREATED, {
+      id: newUser.id,
+      email: newUser.email,
+    });
   } catch (error) {
     next(error);
   }

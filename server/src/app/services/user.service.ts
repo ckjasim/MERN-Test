@@ -1,7 +1,7 @@
 
 import { User } from "../models/schema/User";
 // import { UserCreationAttributes } from "../models/User";
-import { UserDoc } from "../models/user.model";
+import { UserAttrs, UserDoc } from "../models/user.model";
 import { IUserService } from "./user.service.interface";
 
 
@@ -15,10 +15,9 @@ export class UserService implements IUserService {
   }
   
   
-
-  // async createUser(userData: UserCreationAttributes): Promise<User> {
-  //   return User.create(userData);
-  // }
+  async createUser(attrs: UserAttrs): Promise<UserDoc> {
+    return await User.build(attrs).save();
+  }
 
   // async updateUserById(
   //   id: number,

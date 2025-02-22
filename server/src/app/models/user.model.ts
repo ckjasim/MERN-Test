@@ -4,6 +4,7 @@ export interface UserAttrs{
     email: string;
     mobile: string;
     password: string;
+    title:string;
     fullName: string;
     dateOfBirth: string;
     currentAddress: string;
@@ -18,6 +19,7 @@ export interface UserDoc extends mongoose.Document{
     email: string;
     mobile: string;
     password: string;
+    title:string;
     fullName: string;
     dateOfBirth: string;
     currentAddress: string;
