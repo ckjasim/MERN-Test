@@ -42,9 +42,8 @@ export const SignupPage = () => {
       if (currentStep < 3) {
         dispatch(SetCurrentStep(currentStep + 1));
       } else {
-        console.log('Final submission:', updatedFormData);
+        
         const res = await createUserApi(updatedFormData);
-        console.log('User created:', res);
         toast.success('Signup done successfully');
 
         if (res?.data?.id) {

@@ -45,6 +45,6 @@ export const financialInfoSchema = Yup.object().shape({
   employmentStatus: Yup.string()
     .required('Employment status is required'),
   additionalInvestments: Yup.string()
-    .nullable(),
+  .required('Additional investments is required')
 });
 

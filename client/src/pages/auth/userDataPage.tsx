@@ -11,6 +11,7 @@ import {
 import { useParams } from 'react-router-dom';
 import { getUserDataApi } from '@/services/api/authApi';
 import { UserData } from '@/types/types';
+import { persistor } from '@/redux/store';
 
 const UserDataPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -18,6 +19,7 @@ const UserDataPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   
   useEffect(() => {
+    persistor.purge(); 
     const fetchData = async () => {
       try {
         const { data } = await getUserDataApi(id!);

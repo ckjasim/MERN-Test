@@ -3,9 +3,11 @@ import { FormLayout } from './components/FormLayout';
 import { financialInfoSchema } from '../../util/validators';
 import { FormData } from '@/redux/features/auth/type';
 
+
 interface FinancialInfoFormProps {
   onSubmit: (values: FormData['financial']) => void;
 }
+
 export const FinancialInfoForm: React.FC<FinancialInfoFormProps> = ({
   onSubmit,
 }) => {
