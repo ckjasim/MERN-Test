@@ -11,8 +11,8 @@ app.use(cors({
     origin: process.env.CLIENT_URL, 
     credentials: true,
   }));
-  app.use(express.json()); // Must be before your routes
-  app.use(express.urlencoded({ extended: true })); // Handles form data
+  app.use(express.json()); 
+  app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1", appRouter);
 

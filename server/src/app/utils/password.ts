@@ -8,5 +8,4 @@ class Password {
         return bcrypt.compare(suppliedPassword, storedPassword);
     }
 }
-
 export default Password;

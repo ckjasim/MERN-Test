@@ -5,24 +5,6 @@ import { validateRequest } from "../middlewares/validate-request";
 
 const router = express.Router();
 
-// router.get("/search",
-//     searchBooks
-// )
-
-// router.get("/:bookId",
-//     getBookById,
-// );
-
-// router.patch("/:bookId",
-//     updateBookValidator,
-//     validateRequest,
-//     updateBook
-// );
-
-// router.delete("/:bookId",
-//     deleteBook
-// )
-
 router.post("/verifyExistingUser",
     signupValidator,
     validateRequest,

@@ -1,6 +1,6 @@
-import { RootState } from "@/redux/store";
-import  { Fragment } from "react";
-import { useSelector } from "react-redux";
+import { RootState } from '@/redux/store';
+import { Fragment } from 'react';
+import { useSelector } from 'react-redux';
 
 export const StepIndicator = () => {
   const { currentStep } = useSelector((state: RootState) => state.Auth);
@@ -11,12 +11,13 @@ export const StepIndicator = () => {
         <Fragment key={index}>
           <div
             className={`w-8 h-8 rounded-full flex items-center justify-center ${
-              index + 1 === currentStep-1 ? 'bg-blue-500 text-white' : 'bg-gray-200'
+              index + 1 === currentStep - 1
+                ? 'bg-blue-500 text-white'
+                : 'bg-gray-200'
             }`}
           >
             {index + 1}
           </div>
-   
         </Fragment>
       ))}
     </div>

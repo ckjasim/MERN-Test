@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, FieldProps } from 'formik';
 import { Eye, EyeOff, HelpCircle, Info } from 'lucide-react';
 import { FormLayout } from './components/FormLayout';
 import { signupSchema } from '../../util/validators';
+import { FormData } from '@/redux/features/auth/type';
 
-export const SignupForm = ({ onSubmit }) => {
+interface SignupFormProps {
+  onSubmit: (values: FormData['signup']) => void;
+}
+
+export const SignupForm:React.FC<SignupFormProps> = ({ onSubmit }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const getPasswordStrength = (password) => {
-    if (!password) return '';
+  const getPasswordStrength = (password:string) => {
+    if (!password) return 0;
     const checks = {
       length: password.length >= 6,
       uppercase: /[A-Z]/.test(password),
@@ -44,7 +49,7 @@ export const SignupForm = ({ onSubmit }) => {
               <div className="space-y-3">
                 <div className="relative">
                   <Field name="email">
-                    {({ field }) => (
+                    {({ field }:FieldProps) => (
                       <div className="relative">
                         <input
                           {...field}
@@ -84,7 +89,7 @@ export const SignupForm = ({ onSubmit }) => {
 
                 <div className="relative">
                   <Field name="mobile">
-                    {({ field }) => (
+                    {({ field }:FieldProps) => (
                       <div className="relative">
                         <input
                           {...field}
@@ -132,7 +137,7 @@ export const SignupForm = ({ onSubmit }) => {
               <div className="space-y-3">
                 <div className="relative">
                   <Field name="password">
-                    {({ field }) => (
+                    {({ field }:FieldProps) => (
                       <div className="relative">
                         <input
                           {...field}
@@ -238,7 +243,7 @@ export const SignupForm = ({ onSubmit }) => {
 
                 <div className="relative">
                   <Field name="confirmPassword">
-                    {({ field }) => (
+                    {({ field }:FieldProps) => (
                       <div className="relative">
                         <input
                           {...field}

@@ -1,34 +1,30 @@
-import { baseURL } from "../interceptors/api"; 
+import { baseURL } from '../interceptors/api';
 
-
-export const userSignupApi = async (data:any) => {
+export const userSignupApi = async (data: any) => {
   try {
-    const response = await baseURL.post('/auth/verifyExistingUser',data);
+    const response = await baseURL.post('/auth/verifyExistingUser', data);
     return response.data;
   } catch (error) {
-    console.error("Error logging out:", error);
+    console.error('Error logging out:', error);
     throw error;
   }
 };
-export const createUserApi = async (data:any) => {
+export const createUserApi = async (data: any) => {
   try {
-    const response = await baseURL.post('/auth',data);
+    const response = await baseURL.post('/auth', data);
     return response.data;
-
   } catch (error) {
-    console.error("Error logging out:", error);
+    console.error('Error logging out:', error);
     throw error;
   }
 };
 
-export const getUserDataApi = async (data:any) => {
+export const getUserDataApi = async (data: any) => {
   try {
-    console.log(data,'dddddddddddddddddd')
-    const response = await baseURL.post('/auth/getUserData',{id:data});
+    const response = await baseURL.post('/auth/getUserData', { id: data });
     return response.data;
-
   } catch (error) {
-    console.error("Error logging out:", error);
+    console.error('Error logging out:', error);
     throw error;
   }
 };

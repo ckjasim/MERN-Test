@@ -1,13 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import userService from "../services/user.service";
 import Password from "../utils/password";
-import {
-  generateJwtAccessToken,
-  generateJwtRefreshToken,
-  JWTUserPayload,
-  verifyJwt,
-} from "../utils/jwt";
-import { setCookie } from "../utils/cookie-utils";
 import { CommonMessages, HttpStatusCode, sendResponse } from "../utils/send-response";
 import { CustomError } from "../utils/custom-error";
 
@@ -18,7 +11,6 @@ export const verifyExistingUser = async (
 ) => {
   try {
     const { email,mobile } = req.body;
-  
     const existingUser = await userService.findUserByEmailOrMobile(email,mobile);
     if (existingUser) {
       throw new CustomError("User already exists in this email or mobile number !", 400);
@@ -74,10 +66,7 @@ export const getUserData = async (
 ) => {
   try {
     const { id } = req.body;
-    console.log(req.body,'req.body')  
-  console.log(id,'iddd')
     const userData = await userService.findUserById(id);
-    console.log(userData)
     if (userData) {
       sendResponse(res, HttpStatusCode.OK, CommonMessages.SUCCESS, userData);
     }else{

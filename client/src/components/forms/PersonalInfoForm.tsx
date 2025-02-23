@@ -1,11 +1,16 @@
-import React from 'react';
-import { Formik, Form, Field } from 'formik';
+import { Formik, Form, Field, FieldProps } from 'formik';
 import { FormLayout } from './components/FormLayout';
-import { StepIndicator } from './components/StepIndicator';
 import { HelpCircle } from 'lucide-react';
 import { personalInfoSchema } from '../../util/validators';
+import { FormData } from '@/redux/features/auth/type';
 
-export const PersonalInfoForm = ({ onSubmit }) => {
+interface PersonalInfoFormProps {
+  onSubmit: (values: FormData['personal']) => void;
+}
+
+export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
+  onSubmit,
+}) => {
   return (
     <FormLayout
       title="Personal information"
@@ -28,14 +33,15 @@ export const PersonalInfoForm = ({ onSubmit }) => {
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="relative">
                 <Field name="title">
-                  {({ field }) => (
+                  {({ field }: FieldProps) => (
                     <div className="relative">
                       <select
                         {...field}
                         className={`peer w-full px-3 py-2 border rounded-lg focus:ring-0 outline-none transition-colors bg-white appearance-none
-                          ${errors.title && touched.title 
-                            ? 'border-red-500 focus:border-red-500' 
-                            : 'border-gray-300 focus:border-blue-500'
+                          ${
+                            errors.title && touched.title
+                              ? 'border-red-500 focus:border-red-500'
+                              : 'border-gray-300 focus:border-blue-500'
                           }
                         `}
                       >
@@ -48,7 +54,11 @@ export const PersonalInfoForm = ({ onSubmit }) => {
                         className={`absolute left-3 -top-2.5 bg-white px-1 text-sm transition-all
                           peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
                           peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-500
-                          ${errors.title && touched.title ? 'text-red-500 peer-focus:text-red-500' : 'text-gray-500'}
+                          ${
+                            errors.title && touched.title
+                              ? 'text-red-500 peer-focus:text-red-500'
+                              : 'text-gray-500'
+                          }
                           pointer-events-none
                         `}
                       >
@@ -58,22 +68,25 @@ export const PersonalInfoForm = ({ onSubmit }) => {
                   )}
                 </Field>
                 {errors.title && touched.title && (
-                  <div className="text-red-500 text-sm mt-1">{errors.title}</div>
+                  <div className="text-red-500 text-sm mt-1">
+                    {errors.title}
+                  </div>
                 )}
               </div>
 
               <div className="relative md:col-span-3">
                 <Field name="fullName">
-                  {({ field }) => (
+                  {({ field }: FieldProps) => (
                     <div className="relative">
                       <input
                         {...field}
                         type="text"
                         placeholder=" "
                         className={`peer w-full px-3 py-2 border rounded-lg focus:ring-0 outline-none transition-colors bg-white
-                          ${errors.fullName && touched.fullName 
-                            ? 'border-red-500 focus:border-red-500' 
-                            : 'border-gray-300 focus:border-blue-500'
+                          ${
+                            errors.fullName && touched.fullName
+                              ? 'border-red-500 focus:border-red-500'
+                              : 'border-gray-300 focus:border-blue-500'
                           }
                         `}
                       />
@@ -81,7 +94,11 @@ export const PersonalInfoForm = ({ onSubmit }) => {
                         className={`absolute left-3 -top-2.5 bg-white px-1 text-sm transition-all
                           peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
                           peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-500
-                          ${errors.fullName && touched.fullName ? 'text-red-500 peer-focus:text-red-500' : 'text-gray-500'}
+                          ${
+                            errors.fullName && touched.fullName
+                              ? 'text-red-500 peer-focus:text-red-500'
+                              : 'text-gray-500'
+                          }
                           pointer-events-none
                         `}
                       >
@@ -91,23 +108,26 @@ export const PersonalInfoForm = ({ onSubmit }) => {
                   )}
                 </Field>
                 {errors.fullName && touched.fullName && (
-                  <div className="text-red-500 text-sm mt-1">{errors.fullName}</div>
+                  <div className="text-red-500 text-sm mt-1">
+                    {errors.fullName}
+                  </div>
                 )}
               </div>
             </div>
 
             <div className="relative">
               <Field name="dateOfBirth">
-                {({ field }) => (
+                {({ field }: FieldProps) => (
                   <div className="relative">
                     <input
                       {...field}
                       type="date"
                       placeholder=" "
                       className={`peer w-full px-3 py-2 border rounded-lg focus:ring-0 outline-none transition-colors bg-white
-                        ${errors.dateOfBirth && touched.dateOfBirth 
-                          ? 'border-red-500 focus:border-red-500' 
-                          : 'border-gray-300 focus:border-blue-500'
+                        ${
+                          errors.dateOfBirth && touched.dateOfBirth
+                            ? 'border-red-500 focus:border-red-500'
+                            : 'border-gray-300 focus:border-blue-500'
                         }
                       `}
                     />
@@ -115,7 +135,11 @@ export const PersonalInfoForm = ({ onSubmit }) => {
                       className={`absolute left-3 -top-2.5 bg-white px-1 text-sm transition-all
                         peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
                         peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-500
-                        ${errors.dateOfBirth && touched.dateOfBirth ? 'text-red-500 peer-focus:text-red-500' : 'text-gray-500'}
+                        ${
+                          errors.dateOfBirth && touched.dateOfBirth
+                            ? 'text-red-500 peer-focus:text-red-500'
+                            : 'text-gray-500'
+                        }
                         pointer-events-none
                       `}
                     >
@@ -125,22 +149,25 @@ export const PersonalInfoForm = ({ onSubmit }) => {
                 )}
               </Field>
               {errors.dateOfBirth && touched.dateOfBirth && (
-                <div className="text-red-500 text-sm mt-1">{errors.dateOfBirth}</div>
+                <div className="text-red-500 text-sm mt-1">
+                  {errors.dateOfBirth}
+                </div>
               )}
             </div>
 
             <div className="relative">
               <Field name="currentAddress">
-                {({ field }) => (
+                {({ field }: FieldProps) => (
                   <div className="relative">
                     <input
                       {...field}
                       type="text"
                       placeholder=" "
                       className={`peer w-full px-3 py-2 border rounded-lg focus:ring-0 outline-none transition-colors bg-white
-                        ${errors.currentAddress && touched.currentAddress 
-                          ? 'border-red-500 focus:border-red-500' 
-                          : 'border-gray-300 focus:border-blue-500'
+                        ${
+                          errors.currentAddress && touched.currentAddress
+                            ? 'border-red-500 focus:border-red-500'
+                            : 'border-gray-300 focus:border-blue-500'
                         }
                       `}
                     />
@@ -148,7 +175,11 @@ export const PersonalInfoForm = ({ onSubmit }) => {
                       className={`absolute left-3 -top-2.5 bg-white px-1 text-sm transition-all
                         peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
                         peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-500
-                        ${errors.currentAddress && touched.currentAddress ? 'text-red-500 peer-focus:text-red-500' : 'text-gray-500'}
+                        ${
+                          errors.currentAddress && touched.currentAddress
+                            ? 'text-red-500 peer-focus:text-red-500'
+                            : 'text-gray-500'
+                        }
                         pointer-events-none
                       `}
                     >
@@ -158,22 +189,25 @@ export const PersonalInfoForm = ({ onSubmit }) => {
                 )}
               </Field>
               {errors.currentAddress && touched.currentAddress && (
-                <div className="text-red-500 text-sm mt-1">{errors.currentAddress}</div>
+                <div className="text-red-500 text-sm mt-1">
+                  {errors.currentAddress}
+                </div>
               )}
             </div>
 
             <div className="relative">
               <Field name="addressDuration">
-                {({ field }) => (
+                {({ field }: FieldProps) => (
                   <div className="relative">
                     <input
                       {...field}
                       type="text"
                       placeholder=" "
                       className={`peer w-full px-3 py-2 border rounded-lg focus:ring-0 outline-none transition-colors bg-white
-                        ${errors.addressDuration && touched.addressDuration 
-                          ? 'border-red-500 focus:border-red-500' 
-                          : 'border-gray-300 focus:border-blue-500'
+                        ${
+                          errors.addressDuration && touched.addressDuration
+                            ? 'border-red-500 focus:border-red-500'
+                            : 'border-gray-300 focus:border-blue-500'
                         }
                       `}
                     />
@@ -181,7 +215,11 @@ export const PersonalInfoForm = ({ onSubmit }) => {
                       className={`absolute left-3 -top-2.5 bg-white px-1 text-sm transition-all
                         peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
                         peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-500
-                        ${errors.addressDuration && touched.addressDuration ? 'text-red-500 peer-focus:text-red-500' : 'text-gray-500'}
+                        ${
+                          errors.addressDuration && touched.addressDuration
+                            ? 'text-red-500 peer-focus:text-red-500'
+                            : 'text-gray-500'
+                        }
                         pointer-events-none
                       `}
                     >
@@ -191,21 +229,24 @@ export const PersonalInfoForm = ({ onSubmit }) => {
                 )}
               </Field>
               {errors.addressDuration && touched.addressDuration && (
-                <div className="text-red-500 text-sm mt-1">{errors.addressDuration}</div>
+                <div className="text-red-500 text-sm mt-1">
+                  {errors.addressDuration}
+                </div>
               )}
             </div>
 
             <div className="relative">
               <Field name="aboutYourself">
-                {({ field }) => (
+                {({ field }: FieldProps) => (
                   <div className="relative">
                     <textarea
                       {...field}
                       placeholder=" "
                       className={`peer w-full px-3 py-2 border rounded-lg focus:ring-0 outline-none transition-colors bg-white h-32
-                        ${errors.aboutYourself && touched.aboutYourself 
-                          ? 'border-red-500 focus:border-red-500' 
-                          : 'border-gray-300 focus:border-blue-500'
+                        ${
+                          errors.aboutYourself && touched.aboutYourself
+                            ? 'border-red-500 focus:border-red-500'
+                            : 'border-gray-300 focus:border-blue-500'
                         }
                       `}
                     />
@@ -213,7 +254,11 @@ export const PersonalInfoForm = ({ onSubmit }) => {
                       className={`absolute left-3 -top-2.5 bg-white px-1 text-sm transition-all
                         peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
                         peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-500
-                        ${errors.aboutYourself && touched.aboutYourself ? 'text-red-500 peer-focus:text-red-500' : 'text-gray-500'}
+                        ${
+                          errors.aboutYourself && touched.aboutYourself
+                            ? 'text-red-500 peer-focus:text-red-500'
+                            : 'text-gray-500'
+                        }
                         pointer-events-none
                       `}
                     >
@@ -223,20 +268,27 @@ export const PersonalInfoForm = ({ onSubmit }) => {
                 )}
               </Field>
               {errors.aboutYourself && touched.aboutYourself && (
-                <div className="text-red-500 text-sm mt-1">{errors.aboutYourself}</div>
+                <div className="text-red-500 text-sm mt-1">
+                  {errors.aboutYourself}
+                </div>
               )}
             </div>
 
             <div className="text-sm text-gray-500 flex items-center gap-2">
               <HelpCircle className="w-4 h-4" />
-              <span>All information can be edited once you have created your account.</span>
+              <span>
+                All information can be edited once you have created your
+                account.
+              </span>
             </div>
 
             <button
               type="submit"
               disabled={isSubmitting}
               className={`w-full bg-blue-500 text-sm text-white py-3 px-4 rounded-lg transition-colors ${
-                isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-600'
+                isSubmitting
+                  ? 'opacity-50 cursor-not-allowed'
+                  : 'hover:bg-blue-600'
               }`}
             >
               {isSubmitting ? 'Saving...' : 'Save and continue'}

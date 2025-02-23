@@ -2,59 +2,80 @@ import { SignupForm } from '../../components/forms/SignupForm';
 import { FinancialInfoForm } from '../../components/forms/FinancialInfoForm';
 import { PersonalInfoForm } from '../../components/forms/PersonalInfoForm';
 import { useDispatch, useSelector } from 'react-redux';
-import { SetCurrentStep, SetSubmitting, UpdateFormData } from '../../redux/features/auth/authSlice';
-import { RootState } from '../../redux/store';
+import {
+  SetCurrentStep,
+  SetSubmitting,
+  UpdateFormData,
+} from '../../redux/features/auth/authSlice';
+import { RootState, AppDispatch } from '../../redux/store';
 import { createUserApi, userSignupApi } from '../../services/api/authApi';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { FormData } from '@/redux/features/auth/type';
 
 export const SignupPage = () => {
-  const navigate= useNavigate();
-  const dispatch = useDispatch();
-  const { currentStep, formData } = useSelector((state: RootState) => state.Auth);
+  const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
+  const { currentStep, formData } = useSelector(
+    (state: RootState) => state.Auth
+  );
 
-  const handleSubmit = async (values, formType) => {
+  const handleSubmit = async <K extends keyof FormData>(
+    values: FormData[K],
+    formType: K
+  ): Promise<void> => {
     try {
       dispatch(SetSubmitting(true));
 
-      const updatedFormData = { ...formData, [formType]: values };
+      const updatedFormData: FormData = { ...formData, [formType]: values };
       dispatch(UpdateFormData({ formType, data: values }));
 
       if (formType === 'signup') {
         try {
-          await userSignupApi(values); 
-        } catch (error:any) {
-          toast.error(error.response.data.errors[0]);
+          await userSignupApi(values);
+        } catch (error: any) {
+          toast.error(error.response?.data?.errors?.[0] || 'An error occurred');
           return;
         }
       }
 
       if (currentStep < 3) {
-        dispatch(SetCurrentStep(currentStep + 1)); 
+        dispatch(SetCurrentStep(currentStep + 1));
       } else {
         console.log('Final submission:', updatedFormData);
-        const res =  await createUserApi(updatedFormData);
-        console.log('User created:', res);  
-        toast.success('signup done successfully');
-        
+        const res = await createUserApi(updatedFormData);
+        console.log('User created:', res);
+        toast.success('Signup done successfully');
+
         if (res?.data?.id) {
-          navigate(`/saved-form/${res?.data?.id}`);
+          navigate(`/saved-form/${res.data.id}`);
         }
       }
-    } catch (error:any) {
+    } catch (error: any) {
       console.error('Form submission error:', error);
-      toast.error(error.response.data.errors[0]);
-
+      toast.error(error.response?.data?.errors?.[0] || 'An error occurred');
     } finally {
       dispatch(SetSubmitting(false));
     }
   };
 
-  const renderForm = () => {
-    const forms = [
-      <SignupForm onSubmit={(values) => handleSubmit(values, 'signup')} />,
-      <PersonalInfoForm onSubmit={(values) => handleSubmit(values, 'personal')} />,
-      <FinancialInfoForm onSubmit={(values) => handleSubmit(values, 'financial')} />,
+  const renderForm = (): JSX.Element | null => {
+    const forms: JSX.Element[] = [
+      <SignupForm
+        onSubmit={(values: FormData['signup']) =>
+          handleSubmit(values, 'signup')
+        }
+      />,
+      <PersonalInfoForm
+        onSubmit={(values: FormData['personal']) =>
+          handleSubmit(values, 'personal')
+        }
+      />,
+      <FinancialInfoForm
+        onSubmit={(values: FormData['financial']) =>
+          handleSubmit(values, 'financial')
+        }
+      />,
     ];
     return forms[currentStep - 1] || null;
   };
