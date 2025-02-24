@@ -48,9 +48,9 @@ export const FinancialInfoForm: React.FC<FinancialInfoFormProps> = ({
                       <option value="retired">Retired</option>
                     </select>
                     <label
-                      className={`absolute left-3 -top-2.5 bg-white px-1 text-sm transition-all
-                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
-                        peer-focus:-top-2.5 peer-focus:text-sm
+                      className={`absolute left-3 -top-2.5 bg-white px-1 text-xs transition-all
+                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
+                        peer-focus:-top-2.5 peer-focus:text-xs
                         ${
                           errors.employmentStatus && touched.employmentStatus
                             ? 'text-red-500'
@@ -65,7 +65,7 @@ export const FinancialInfoForm: React.FC<FinancialInfoFormProps> = ({
                 )}
               </Field>
               {errors.employmentStatus && touched.employmentStatus && (
-                <div className="text-red-500 text-sm mt-1">
+                <div className="text-red-500 text-xs mt-1">
                   {errors.employmentStatus}
                 </div>
               )}
@@ -89,9 +89,9 @@ export const FinancialInfoForm: React.FC<FinancialInfoFormProps> = ({
                       `}
                     />
                     <label
-                      className={`absolute left-3 -top-2.5 bg-white px-1 text-sm transition-all
-                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
-                        peer-focus:-top-2.5 peer-focus:text-sm
+                      className={`absolute left-3 -top-2.5 bg-white px-1 text-xs transition-all
+                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
+                        peer-focus:-top-2.5 peer-focus:text-xs
                         ${
                           errors.additionalInvestments &&
                           touched.additionalInvestments
@@ -108,7 +108,7 @@ export const FinancialInfoForm: React.FC<FinancialInfoFormProps> = ({
               </Field>
               {errors.additionalInvestments &&
                 touched.additionalInvestments && (
-                  <div className="text-red-500 text-sm mt-1">
+                  <div className="text-red-500 text-xs mt-1">
                     {errors.additionalInvestments}
                   </div>
                 )}

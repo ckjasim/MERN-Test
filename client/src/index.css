@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  input:-webkit-autofill {
+    background-color: white !important;
+    box-shadow: 0 0 0px 1000px white inset !important;
+  }
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

@@ -9,9 +9,9 @@ import {
 } from '../../redux/features/auth/authSlice';
 import { RootState, AppDispatch } from '../../redux/store';
 import { createUserApi, userSignupApi } from '../../services/api/authApi';
-import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { FormData } from '@/redux/features/auth/type';
+import { showToast } from '@/util/toast/Toast';
 
 export const SignupPage = () => {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ export const SignupPage = () => {
         try {
           await userSignupApi(values);
         } catch (error: any) {
-          toast.error(error.response?.data?.errors?.[0] || 'An error occurred');
+          showToast.error(error.response?.data?.errors?.[0] || 'An error occurred')
           return;
         }
       }
@@ -44,7 +44,7 @@ export const SignupPage = () => {
       } else {
         
         const res = await createUserApi(updatedFormData);
-        toast.success('Signup done successfully');
+        showToast.success('Signup done successfully');
 
         if (res?.data?.id) {
           navigate(`/saved-form/${res.data.id}`);
@@ -52,7 +52,7 @@ export const SignupPage = () => {
       }
     } catch (error: any) {
       console.error('Form submission error:', error);
-      toast.error(error.response?.data?.errors?.[0] || 'An error occurred');
+      showToast.error(error.response?.data?.errors?.[0] || 'An error occurred');
     } finally {
       dispatch(SetSubmitting(false));
     }

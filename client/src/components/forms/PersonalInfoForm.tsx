@@ -51,9 +51,9 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                         <option value="dr">Dr.</option>
                       </select>
                       <label
-                        className={`absolute left-3 -top-2.5 bg-white px-1 text-sm transition-all
-                          peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
-                          peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-500
+                        className={`absolute left-3 -top-2.5 bg-white px-1 text-xs transition-all
+                          peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
+                          peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-blue-500
                           ${
                             errors.title && touched.title
                               ? 'text-red-500 peer-focus:text-red-500'
@@ -68,7 +68,7 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                   )}
                 </Field>
                 {errors.title && touched.title && (
-                  <div className="text-red-500 text-sm mt-1">
+                  <div className="text-red-500 text-xs mt-1">
                     {errors.title}
                   </div>
                 )}
@@ -91,9 +91,9 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                         `}
                       />
                       <label
-                        className={`absolute left-3 -top-2.5 bg-white px-1 text-sm transition-all
-                          peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
-                          peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-500
+                        className={`absolute left-3 -top-2.5 bg-white px-1 text-xs transition-all
+                          peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
+                          peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-blue-500
                           ${
                             errors.fullName && touched.fullName
                               ? 'text-red-500 peer-focus:text-red-500'
@@ -108,7 +108,7 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                   )}
                 </Field>
                 {errors.fullName && touched.fullName && (
-                  <div className="text-red-500 text-sm mt-1">
+                  <div className="text-red-500 text-xs mt-1">
                     {errors.fullName}
                   </div>
                 )}
@@ -132,9 +132,9 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                       `}
                     />
                     <label
-                      className={`absolute left-3 -top-2.5 bg-white px-1 text-sm transition-all
-                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
-                        peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-500
+                      className={`absolute left-3 -top-2.5 bg-white px-1 text-xs transition-all
+                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
+                        peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-blue-500
                         ${
                           errors.dateOfBirth && touched.dateOfBirth
                             ? 'text-red-500 peer-focus:text-red-500'
@@ -149,7 +149,7 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                 )}
               </Field>
               {errors.dateOfBirth && touched.dateOfBirth && (
-                <div className="text-red-500 text-sm mt-1">
+                <div className="text-red-500 text-xs mt-1">
                   {errors.dateOfBirth}
                 </div>
               )}
@@ -172,9 +172,9 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                       `}
                     />
                     <label
-                      className={`absolute left-3 -top-2.5 bg-white px-1 text-sm transition-all
-                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
-                        peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-500
+                      className={`absolute left-3 -top-2.5 bg-white px-1 text-xs transition-all
+                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
+                        peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-blue-500
                         ${
                           errors.currentAddress && touched.currentAddress
                             ? 'text-red-500 peer-focus:text-red-500'
@@ -189,7 +189,7 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                 )}
               </Field>
               {errors.currentAddress && touched.currentAddress && (
-                <div className="text-red-500 text-sm mt-1">
+                <div className="text-red-500 text-xs mt-1">
                   {errors.currentAddress}
                 </div>
               )}
@@ -212,9 +212,9 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                       `}
                     />
                     <label
-                      className={`absolute left-3 -top-2.5 bg-white px-1 text-sm transition-all
-                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
-                        peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-500
+                      className={`absolute left-3 -top-2.5 bg-white px-1 text-xs transition-all
+                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
+                        peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-blue-500
                         ${
                           errors.addressDuration && touched.addressDuration
                             ? 'text-red-500 peer-focus:text-red-500'
@@ -229,7 +229,7 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                 )}
               </Field>
               {errors.addressDuration && touched.addressDuration && (
-                <div className="text-red-500 text-sm mt-1">
+                <div className="text-red-500 text-xs mt-1">
                   {errors.addressDuration}
                 </div>
               )}
@@ -242,7 +242,7 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                     <textarea
                       {...field}
                       placeholder=" "
-                      className={`peer w-full px-3 py-2 border rounded-lg focus:ring-0 outline-none transition-colors bg-white h-32
+                      className={`peer w-full px-3 py-2 border rounded-lg focus:ring-0 outline-none transition-colors bg-white h-24
                         ${
                           errors.aboutYourself && touched.aboutYourself
                             ? 'border-red-500 focus:border-red-500'
@@ -251,9 +251,9 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                       `}
                     />
                     <label
-                      className={`absolute left-3 -top-2.5 bg-white px-1 text-sm transition-all
-                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
-                        peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-500
+                      className={`absolute left-3 -top-2.5 bg-white px-1 text-xs transition-all
+                        peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
+                        peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-blue-500
                         ${
                           errors.aboutYourself && touched.aboutYourself
                             ? 'text-red-500 peer-focus:text-red-500'
@@ -268,13 +268,13 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
                 )}
               </Field>
               {errors.aboutYourself && touched.aboutYourself && (
-                <div className="text-red-500 text-sm mt-1">
+                <div className="text-red-500 text-xs mt-1">
                   {errors.aboutYourself}
                 </div>
               )}
             </div>
 
-            <div className="text-sm text-gray-500 flex items-center gap-2">
+            <div className="text-xs text-gray-500 flex items-center gap-2">
               <HelpCircle className="w-4 h-4" />
               <span>
                 All information can be edited once you have created your
@@ -285,7 +285,7 @@ export const PersonalInfoForm: React.FC<PersonalInfoFormProps> = ({
             <button
               type="submit"
               disabled={isSubmitting}
-              className={`w-full bg-blue-500 text-sm text-white py-3 px-4 rounded-lg transition-colors ${
+              className={`w-full bg-blue-500 text-xs text-white py-3 px-4 rounded-lg transition-colors ${
                 isSubmitting
                   ? 'opacity-50 cursor-not-allowed'
                   : 'hover:bg-blue-600'

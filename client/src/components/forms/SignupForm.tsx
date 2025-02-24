@@ -64,9 +64,9 @@ export const SignupForm:React.FC<SignupFormProps> = ({ onSubmit }) => {
                           `}
                         />
                         <label
-                          className={`absolute left-3 -top-2.5 bg-white px-1 text-sm transition-all
-                            peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
-                            peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-500
+                          className={`absolute left-3 -top-2.5 bg-white px-1 text-xs transition-all
+                            peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
+                            peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-blue-500
                             ${
                               errors.email && touched.email
                                 ? 'text-red-500 peer-focus:text-red-500'
@@ -81,7 +81,7 @@ export const SignupForm:React.FC<SignupFormProps> = ({ onSubmit }) => {
                     )}
                   </Field>
                   {errors.email && touched.email && (
-                    <div className="text-red-500 text-sm mt-1">
+                    <div className="text-red-500 text-xs mt-1">
                       {errors.email}
                     </div>
                   )}
@@ -104,9 +104,9 @@ export const SignupForm:React.FC<SignupFormProps> = ({ onSubmit }) => {
                           `}
                         />
                         <label
-                          className={`absolute left-3 -top-2.5 bg-white px-1 text-sm transition-all
-                            peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
-                            peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-500
+                          className={`absolute left-3 -top-2.5 bg-white px-1 text-xs transition-all
+                            peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
+                            peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-blue-500
                             ${
                               errors.mobile && touched.mobile
                                 ? 'text-red-500 peer-focus:text-red-500'
@@ -122,7 +122,7 @@ export const SignupForm:React.FC<SignupFormProps> = ({ onSubmit }) => {
                     )}
                   </Field>
                   {errors.mobile && touched.mobile && (
-                    <div className="text-red-500 text-sm mt-1">
+                    <div className="text-red-500 text-xs mt-1">
                       {errors.mobile}
                     </div>
                   )}
@@ -152,9 +152,9 @@ export const SignupForm:React.FC<SignupFormProps> = ({ onSubmit }) => {
                           `}
                         />
                         <label
-                          className={`absolute left-3 -top-2.5 bg-white px-1 text-sm transition-all
-                            peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
-                            peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-500
+                          className={`absolute left-3 -top-2.5 bg-white px-1 text-xs transition-all
+                            peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
+                            peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-blue-500
                             ${
                               errors.password && touched.password
                                 ? 'text-red-500 peer-focus:text-red-500'
@@ -235,7 +235,7 @@ export const SignupForm:React.FC<SignupFormProps> = ({ onSubmit }) => {
                     </div>
                   )}
                   {errors.password && touched.password && (
-                    <div className="text-red-500 text-sm mt-1">
+                    <div className="text-red-500 text-xs mt-1">
                       {errors.password}
                     </div>
                   )}
@@ -258,9 +258,9 @@ export const SignupForm:React.FC<SignupFormProps> = ({ onSubmit }) => {
                           `}
                         />
                         <label
-                          className={`absolute left-3 -top-2.5 bg-white px-1 text-sm transition-all
-                            peer-placeholder-shown:top-2 peer-placeholder-shown:text-base
-                            peer-focus:-top-2.5 peer-focus:text-sm peer-focus:text-blue-500
+                          className={`absolute left-3 -top-2.5 bg-white px-1 text-xs transition-all
+                            peer-placeholder-shown:top-2 peer-placeholder-shown:text-sm
+                            peer-focus:-top-2.5 peer-focus:text-xs peer-focus:text-blue-500
                             ${
                               errors.confirmPassword && touched.confirmPassword
                                 ? 'text-red-500 peer-focus:text-red-500'
@@ -288,7 +288,7 @@ export const SignupForm:React.FC<SignupFormProps> = ({ onSubmit }) => {
                     )}
                   </Field>
                   {errors.confirmPassword && touched.confirmPassword && (
-                    <div className="text-red-500 text-sm mt-1">
+                    <div className="text-red-500 text-xs mt-1">
                       {errors.confirmPassword}
                     </div>
                   )}

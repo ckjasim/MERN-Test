@@ -16,7 +16,7 @@ export const FormLayout: React.FC<FormLayoutProps> = ({
 }) => {
   const { currentStep } = useSelector((state: RootState) => state.Auth);
   return (
-    <div className="max-w-lg mx-auto p-6 px-12">
+    <div className="max-w-[500px] mx-auto p-6 px-12">
       <div className="mb-8 flex flex-col items-center">
         {currentStep && currentStep > 1 && <StepIndicator />}
         
